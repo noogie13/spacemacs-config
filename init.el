@@ -351,9 +351,16 @@ you should place your code here."
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((sh . t)
+   '((shell . t)
      (lisp . t)
      (gnuplot .t)))
+
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options
+        '(("breaklines" "true")
+          ("breakanywhere" "true")))
+          ;; ("frame" "lines")
+          ;; ("linenos=true")
 
   (require 'ox-latex)
   (add-to-list 'org-latex-classes
