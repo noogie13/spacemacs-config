@@ -399,41 +399,6 @@ you should place your code here."
 
   (setq global-visual-line-mode t)
 
-  (setq gnus-secondary-select-methods
-        '(
-          (nnimap "gmail"
-                  (nnimap-address
-                   "imap.gmail.com")
-                  (nnimap-server-port 993)
-                  (nnimap-stream ssl))
-          ))
- (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
-
-  ;; Send email via Gmail:
-  (setq message-send-mail-function 'smtpmail-send-it
-        smtpmail-default-smtp-server "smtp.gmail.com")
-
-  (setq gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
-
-  ;; Archive outgoing email in Sent folder on imap.gmail.com:
-  (setq gnus-message-archive-method '(nnimap "imap.gmail.com")
-        gnus-message-archive-group "[Gmail]/Sent Mail")
-
-  ;; set return email address based on incoming email address
-  (setq gnus-posting-styles
-        '(((header "to" "address@outlook.com")
-           (address "address@outlook.com"))
-          ((header "to" "address@gmail.com")
-           (address "address@gmail.com"))))
-
-  ;; store email in ~/gmail directory
-  (setq nnml-directory "~/gmail")
-  (setq message-directory "~/gmail")
-
-  (setq group-name-map '(("nnimap+imap.gmail.com:[Gmail]/All Mail" . "All Mail")))
-
-  ;; (setq smtpmail-smtp-service 587)
-
   (let ((slime-extra '(slime-fancy
                        slime-banner
                        slime-repl-ansi-color
@@ -443,6 +408,24 @@ you should place your code here."
                        slime-asdf
                        slime-indentation)))
     (slime-setup slime-extra))
+
+
+  (setq user-mail-address "solomonbloch@gmail.com"
+        user-full-name "Solomon Bloch")
+
+  (setq gnus-select-method
+        '(nnimap "gmail"
+                 (nnimap-address "imap.gmail.com")  ; it could also be imap.googlemail.com if that's your server.
+                 (nnimap-server-port "imaps")
+                 (nnimap-stream ssl)))
+
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587
+        starttls-gnutls-program "/usr/local/bin/gnutls-cli"
+        starttls-extra-arguments nil
+        starttls-use-gnutls t
+        gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
   )
 
@@ -461,7 +444,8 @@ you should place your code here."
  '(package-selected-packages
    (quote
     (slime-repl-ansi-color zenburn-theme-theme spacemacs-dark-theme-theme doom-nord-theme keychain-environment fcitx toml-mode racer pos-tip cargo rust-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor js2-mode js-doc company-tern tern coffee-mode clj-refactor transient haml-mode alect-themes clojure-snippets inflections edn multiple-cursors paredit peg cider-eval-sexp-fu cider sesman queue clojure-mode mmm-mode markdown-toc markdown-mode gh-md smeargle orgit magit-gitflow helm-gitignore gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link evil-magit magit magit-popup git-commit ghub treepy graphql with-editor auctex-latexmk disaster company-c-headers cmake-mode clang-format julia-repl julia-mode flycheck-julia web-mode tagedit slim-mode scss-mode sass-mode pug-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode doom-themes all-the-icons memoize zenburn-theme zen-and-art-theme white-sand-theme underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme tao-theme tangotango-theme tango-plus-theme tango-2-theme sunny-day-theme sublime-themes subatomic256-theme subatomic-theme spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme seti-theme reverse-theme rebecca-theme railscasts-theme purple-haze-theme professional-theme planet-theme phoenix-dark-pink-theme phoenix-dark-mono-theme organic-green-theme omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme mustang-theme monokai-theme monochrome-theme molokai-theme moe-theme minimal-theme material-theme majapahit-theme madhat2r-theme lush-theme light-soap-theme jbeans-theme jazz-theme ir-black-theme inkpot-theme heroku-theme hemisu-theme hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme gandalf-theme flatui-theme flatland-theme farmhouse-theme exotica-theme espresso-theme dracula-theme django-theme darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme cyberpunk-theme color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme cherry-blossom-theme busybee-theme bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme sql-indent xterm-color shell-pop org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download multi-term htmlize gnuplot eshell-z eshell-prompt-extras esh-help insert-shebang fish-mode company-shell csv-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode dash-functional helm-pydoc cython-mode company-anaconda anaconda-mode pythonic company-auctex auctex unfill slime-company slime ranger mwim intero flycheck hlint-refactor hindent helm-hoogle helm-company helm-c-yasnippet haskell-snippets fuzzy company-statistics company-ghci company-ghc ghc haskell-mode company-cabal company common-lisp-snippets cmm-mode auto-yasnippet yasnippet ac-ispell auto-complete ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
- '(safe-local-variable-values (quote ((Base . 10) (Syntax . ANSI-Common-Lisp)))))
+ '(safe-local-variable-values (quote ((Base . 10) (Syntax . ANSI-Common-Lisp))))
+ '(send-mail-function (quote mailclient-send-it)))
 ;; (custom-set-faces
 ;;  ;; custom-set-faces was added by Custom.
 ;;  ;; If you edit it by hand, you could mess it up, so be careful.
