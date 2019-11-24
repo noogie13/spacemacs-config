@@ -31,6 +31,7 @@ values."
    dotspacemacs-configuration-layers
    '(
      gnus
+     notmuch
      ;; neotree
      javascript
      (clojure :variables
@@ -66,7 +67,7 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
-            shell-default-term-shell "/bin/fish")
+            shell-default-term-shell "/bin/zsh")
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -151,8 +152,8 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(doom-nord
                          doom-nord-light)
-                         ;; tao-yin
-                         ;; tao-yang)
+   ;; tao-yin
+   ;; tao-yang)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -345,6 +346,7 @@ you should place your code here."
                     (font-spec :name "NanumGothicCoding"))
 
   (add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
   (setq haskell-process-args-ghci
         '("-ferror-spans" "-fshow-loaded-modules"))
   (setq haskell-process-args-cabal-repl
@@ -422,10 +424,10 @@ you should place your code here."
   (setq message-send-mail-function 'smtpmail-send-it
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587
-        starttls-gnutls-program "/usr/local/bin/gnutls-cli"
-        starttls-extra-arguments nil
-        starttls-use-gnutls t
         gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
+
+  (autoload 'notmuch "notmuch" "notmuch mail" t)
+  (setq notmuch-search-oldest-first nil)
 
   )
 
